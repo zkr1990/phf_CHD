@@ -8,6 +8,8 @@ Use Jenkins hash for g(x).
 All-in-one naive C++ coding, naive Chinese comments.
 
 ## Run
+Generate keys for test input. (input.txt)
+Input and output of phf are 64 bits integer numbers.
 
 ~~~
 cd input_file
