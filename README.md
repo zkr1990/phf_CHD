@@ -1,4 +1,4 @@
-## PHF_CHD: perfect hash function using CHD algorithm
+## PHF_CHD: (minimum) perfect hash function using CHD algorithm
 
 ## Description
 
