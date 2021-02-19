@@ -8,8 +8,6 @@
 #include <sstream>
 #include<typeinfo>
 
-// #include "chd.h"
-
 using namespace std;
 
 /*
@@ -17,8 +15,7 @@ bucket结构，包含：
 index:由g(x)确定，一个bucket有独立的index（0 <= index < r）
 size:当前bucket中item的个数，
 	即原始x中，有size个x的g(x)都相同，因此被放入同一个bucket
-keys:size个原始x的值
-*/
+keys:size个原始x的值*/
 typedef struct bucket{
 	//第i个bucket的index为
 	uint64_t index; 
@@ -29,8 +26,7 @@ typedef struct bucket{
 
 /*
 g()逻辑：生成bucket的index
-// jenkins hash g(x)逻辑
-*/
+// jenkins hash g(x)逻辑*/
 uint64_t g(uint64_t key) {
     key = (~key) + (key << 21); // key = (key << 21) - key - 1;
     key = key ^ (key >> 24);
@@ -43,22 +39,19 @@ uint64_t g(uint64_t key) {
 }
 
 /*
-f1()逻辑
-*/
+f1()逻辑*/
 uint64_t f1(uint64_t key) {
 	return key % 4;
 }
 
 /*
-f2()逻辑
-*/
+f2()逻辑*/
 uint64_t f2(uint64_t key) {
 	return key % 3;
 }
 
 /*insert_bucket
-将当前y=g(x)插入bucket vector中
-*/
+将当前y=g(x)插入bucket vector中*/
 bool insert_bucket(vector<bucket> *B, uint64_t g_x, uint64_t input_key) {
 	int B_size = B->size();
     for (int i = 0; i < B_size; i++)
@@ -80,8 +73,7 @@ bool insert_bucket(vector<bucket> *B, uint64_t g_x, uint64_t input_key) {
 }
 
 /*b_compare
-对bucket，按size排序
-*/
+对bucket，按size排序*/
 bool b_compare(const bucket& b1, const bucket& b2)
 {
 	return (b1.size > b2.size);
@@ -89,8 +81,7 @@ bool b_compare(const bucket& b1, const bucket& b2)
 
 /*set_function
 生成（设置）完美哈希函数y = phf(x) = (f1(key) + d0 * f2(key) + d1) % m;
-对每个bucket，将其对应的完美哈希函数的参数d0, d1保存至f_map中
-*/
+对每个bucket，将其对应的完美哈希函数的参数d0, d1保存至f_map中*/
 bool set_function(uint64_t *input_k, int n, int m, map<uint64_t, uint64_t> &f_map) {
 	//第一步，定义bucket vector，将哈希函数g()用于input_key，结果保存在bucket vector B 中
 	vector<bucket> *B;
@@ -198,8 +189,7 @@ bool set_function(uint64_t *input_k, int n, int m, map<uint64_t, uint64_t> &f_ma
 
 /*
 查找时，先求g(key)，再查得d0,d1
-最后计算phf(key) = ( f1(key) + d0 * f2(key) + d1 ) % m
-*/
+最后计算phf(key) = ( f1(key) + d0 * f2(key) + d1 ) % m*/
 int lookup(uint64_t key, map<uint64_t, uint64_t> &f_map, int m) {
 	cout << "Key: " << key << " => " ;
 	uint64_t j1 = g(key); //将g(x)值cast为uint64_t类型，用于查找d0及d1
