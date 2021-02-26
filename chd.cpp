@@ -252,7 +252,7 @@ int main () {
 	int value = lookup(searchKey, func_map, m);
 	cout << "The hashed value is: " << value << endl;
 	*/
-	// 对完美哈希函数的结果进行冲突检查
+	// 对minimum完美哈希函数的结果进行冲突检查
 	set<uint64_t> value_set = {};
 
 	cout << "set function complete-----------------------------" << endl << endl;
